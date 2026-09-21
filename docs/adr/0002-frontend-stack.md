@@ -24,7 +24,9 @@ accepted.
 
 - Product shape is not yet defined. How much client-side interactivity the service actually
   needs is the dominant input and is currently unknown.
-- Single maintainer, so total toolchain complexity is a real cost rather than an abstraction.
+- Team size, which sets how much toolchain complexity is affordable. On a small team the total
+  cost is real rather than abstract; a larger one can absorb more and should weigh this driver
+  lower, or strike it.
 - Possible open-sourcing, which favours a stack outside contributors already know.
 - Must support the testing standards: unit-testable components and a driveable end-to-end
   layer.
@@ -94,7 +96,8 @@ Closing this ADR requires all of the following:
 
 - Good: no JavaScript build pipeline, no `node_modules`, one language for all logic, and the
   test pyramid collapses almost entirely into Go tests.
-- Good: by far the lowest maintenance burden for a single maintainer.
+- Good: by far the lowest maintenance burden, which counts for most where there are fewest
+  people to carry it.
 - Bad: hits a wall if the product needs genuinely rich client-side state, and the wall is
   expensive to discover late.
 - Bad: contradicts the current `.gitignore` and the "browser-based JavaScript frontend"
