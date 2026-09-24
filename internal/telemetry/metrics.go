@@ -155,8 +155,8 @@ func SetupMetrics(cfg Config, logger *zap.Logger) (*Metrics, error) {
 	// Go runtime metrics: heap, goroutine count, GC pauses. Started here because
 	// without them a service carrying no custom instrumentation yet exposes
 	// almost nothing worth scraping.
-	if err := runtime.Start(runtime.WithMeterProvider(provider)); err != nil {
-		return nil, fmt.Errorf("starting runtime metrics collection: %w", err)
+	if withMeterProviderErr := runtime.Start(runtime.WithMeterProvider(provider)); withMeterProviderErr != nil {
+		return nil, fmt.Errorf("starting runtime metrics collection: %w", withMeterProviderErr)
 	}
 
 	logger.Info("metrics enabled",

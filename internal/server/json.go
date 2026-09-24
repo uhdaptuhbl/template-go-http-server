@@ -89,8 +89,8 @@ func WriteJSON(w http.ResponseWriter, logger *zap.Logger, status int, v any) {
 	w.Header().Set("Content-Type", jsonMediaType)
 	w.WriteHeader(status)
 
-	if _, err := w.Write(body); err != nil {
-		logger.Error("writing json response", zap.Error(err), zap.Int("status", status))
+	if _, writeErr := w.Write(body); writeErr != nil {
+		logger.Error("writing json response", zap.Error(writeErr), zap.Int("status", status))
 	}
 }
 

@@ -154,8 +154,8 @@ func run(ctx context.Context, forced <-chan os.Signal, lookuper envconfig.Lookup
 
 	defer shutDown(ctx, logger, "metrics", metrics.Shutdown)
 
-	if err := metrics.RecordBuildInfo(build); err != nil {
-		return fmt.Errorf("recording build information: %w", err)
+	if recordBuildInfoErr := metrics.RecordBuildInfo(build); recordBuildInfoErr != nil {
+		return fmt.Errorf("recording build information: %w", recordBuildInfoErr)
 	}
 
 	// The providers are handed to the instrumentation explicitly: nothing in
@@ -171,8 +171,8 @@ func run(ctx context.Context, forced <-chan os.Signal, lookuper envconfig.Lookup
 
 	admin := server.New(cfg.Admin, logger, server.NewAdminMux(cfg.Admin, logger, ready, process, metrics.Handler()))
 
-	if err := server.RunAll(ctx, cfg.Lifecycle, ready, logger, app, admin); err != nil {
-		return fmt.Errorf("running server: %w", err)
+	if runAllErr := server.RunAll(ctx, cfg.Lifecycle, ready, logger, app, admin); runAllErr != nil {
+		return fmt.Errorf("running server: %w", runAllErr)
 	}
 
 	return nil
