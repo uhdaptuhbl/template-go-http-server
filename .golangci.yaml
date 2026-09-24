@@ -509,6 +509,12 @@ linters:
       # Flags variables that shadow an outer-scope variable.
       enable:
         - shadow
+      settings:
+        shadow:
+          # Strict, because CLAUDE.md forbids every shadowing :=. The default
+          # mode reports a shadow only when the outer variable is read again
+          # after the inner scope, which let 17 of them through.
+          strict: true
 
     # --- gocyclo -------------------------------------------------------------
     gocyclo:
