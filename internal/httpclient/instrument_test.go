@@ -64,8 +64,8 @@ func TestClientRecordsASpanThroughTheSuppliedProvider(t *testing.T) {
 	get(t, client, server.URL)
 	<-seen
 
-	if err := provider.ForceFlush(t.Context()); err != nil {
-		t.Fatalf("flushing the provider: %v", err)
+	if forceFlushErr := provider.ForceFlush(t.Context()); forceFlushErr != nil {
+		t.Fatalf("flushing the provider: %v", forceFlushErr)
 	}
 
 	spans := recorder.Ended()

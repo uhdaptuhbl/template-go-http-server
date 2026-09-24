@@ -255,8 +255,8 @@ func TestBothTypesSurviveAJSONRoundTrip(t *testing.T) {
 
 	var got settings
 
-	if err := json.Unmarshal(encoded, &got); err != nil {
-		t.Fatalf("json.Unmarshal error = %v, want nil", err)
+	if unmarshalErr := json.Unmarshal(encoded, &got); unmarshalErr != nil {
+		t.Fatalf("json.Unmarshal error = %v, want nil", unmarshalErr)
 	}
 
 	if got != want {

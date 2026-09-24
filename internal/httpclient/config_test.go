@@ -88,8 +88,8 @@ func TestConfigRendersInTheNotationAnOperatorWrites(t *testing.T) {
 
 	var decoded map[string]any
 
-	if err := json.Unmarshal(encoded, &decoded); err != nil {
-		t.Fatalf("json.Unmarshal error = %v, want nil", err)
+	if unmarshalErr := json.Unmarshal(encoded, &decoded); unmarshalErr != nil {
+		t.Fatalf("json.Unmarshal error = %v, want nil", unmarshalErr)
 	}
 
 	if got := decoded["timeout"]; got != "30s" {
@@ -120,7 +120,7 @@ func TestEverySettingDeclaresItsVariable(t *testing.T) {
 				t.Errorf("%s has env tag %q, want it to say overwrite: Default() leaves the field non-zero, and go-envconfig skips a non-zero field without it", field.Name, tag)
 			}
 
-			if _, ok := field.Tag.Lookup("json"); !ok {
+			if _, hasJSON := field.Tag.Lookup("json"); !hasJSON {
 				t.Errorf("%s declares no json tag: it would appear in the logged effective configuration under its Go name", field.Name)
 			}
 		})

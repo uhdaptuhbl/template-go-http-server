@@ -64,9 +64,9 @@ func TestServeShutsDownWhenContextIsCancelled(t *testing.T) {
 	cancel()
 
 	select {
-	case err := <-serveErr:
-		if err != nil {
-			t.Fatalf("Serve returned error after cancellation: %v", err)
+	case serveResult := <-serveErr:
+		if serveResult != nil {
+			t.Fatalf("Serve returned error after cancellation: %v", serveResult)
 		}
 	case <-time.After(10 * time.Second):
 		t.Fatal("Serve did not return within 10s of context cancellation")
@@ -176,7 +176,7 @@ func TestServeReportsAListenerFailure(t *testing.T) {
 
 	srv := New(DefaultConfig(), zap.NewNop(), testMux(t))
 
-	if err := srv.Serve(context.Background(), listener); err == nil {
+	if serveErr := srv.Serve(context.Background(), listener); serveErr == nil {
 		t.Fatal("Serve returned nil error for a closed listener")
 	}
 }
@@ -333,9 +333,9 @@ func TestServerSetsMaxHeaderBytes(t *testing.T) {
 	cancel()
 
 	select {
-	case err := <-serveErr:
-		if err != nil {
-			t.Fatalf("Serve returned error after cancellation: %v", err)
+	case serveResult := <-serveErr:
+		if serveResult != nil {
+			t.Fatalf("Serve returned error after cancellation: %v", serveResult)
 		}
 	case <-time.After(10 * time.Second):
 		t.Fatal("Serve did not return within 10s of context cancellation")
@@ -399,9 +399,9 @@ func TestServerErrorLogGoesToZap(t *testing.T) {
 	cancel()
 
 	select {
-	case err := <-serveErr:
-		if err != nil {
-			t.Fatalf("Serve returned error after cancellation: %v", err)
+	case serveResult := <-serveErr:
+		if serveResult != nil {
+			t.Fatalf("Serve returned error after cancellation: %v", serveResult)
 		}
 	case <-time.After(10 * time.Second):
 		t.Fatal("Serve did not return within 10s of context cancellation")
@@ -472,9 +472,9 @@ func TestRunAllFailsReadinessBeforeClosingListeners(t *testing.T) {
 	}
 
 	select {
-	case err := <-done:
-		if err != nil {
-			t.Fatalf("RunAll returned error after cancellation: %v", err)
+	case runErr := <-done:
+		if runErr != nil {
+			t.Fatalf("RunAll returned error after cancellation: %v", runErr)
 		}
 	case <-time.After(10 * time.Second):
 		t.Fatal("RunAll did not return within 10s of context cancellation")

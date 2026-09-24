@@ -75,9 +75,9 @@ func TestDrainSequence(t *testing.T) {
 	}
 
 	select {
-	case err := <-runDone:
-		if err != nil {
-			t.Fatalf("RunAll returned error: %v", err)
+	case runErr := <-runDone:
+		if runErr != nil {
+			t.Fatalf("RunAll returned error: %v", runErr)
 		}
 	case <-time.After(5 * time.Second):
 		t.Fatal("RunAll did not return within 5s of the pre-drain delay elapsing")
@@ -294,9 +294,9 @@ func TestFrontendRevalidationOverTheWire(t *testing.T) {
 	cancel()
 
 	select {
-	case err := <-runDone:
-		if err != nil {
-			t.Fatalf("Run returned error: %v", err)
+	case runErr := <-runDone:
+		if runErr != nil {
+			t.Fatalf("Run returned error: %v", runErr)
 		}
 	case <-time.After(5 * time.Second):
 		t.Fatal("Run did not return within 5s of context cancellation")
@@ -671,8 +671,8 @@ func TestRequestBodyLimitClosesTheConnection(t *testing.T) {
 	}
 
 	defer func() {
-		if err := response.Body.Close(); err != nil {
-			t.Errorf("closing response body: %v", err)
+		if closeErr := response.Body.Close(); closeErr != nil {
+			t.Errorf("closing response body: %v", closeErr)
 		}
 	}()
 

@@ -350,8 +350,8 @@ func TestSecretStringSurvivesAJSONRoundTripAsRedactedText(t *testing.T) {
 
 	var decoded SecretString
 
-	if err := json.Unmarshal(encoded, &decoded); err != nil {
-		t.Fatalf("json.Unmarshal() error = %v, want nil", err)
+	if unmarshalErr := json.Unmarshal(encoded, &decoded); unmarshalErr != nil {
+		t.Fatalf("json.Unmarshal() error = %v, want nil", unmarshalErr)
 	}
 
 	// The secret does not survive the round trip, by design: marshalling emits
