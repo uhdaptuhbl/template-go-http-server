@@ -183,8 +183,8 @@ func copyEnvExample() error {
 	_, writeErr := file.Write(contents)
 	closeErr := file.Close()
 
-	if err := errors.Join(writeErr, closeErr); err != nil {
-		return fmt.Errorf("writing %s: %w", envFile, err)
+	if joinErr := errors.Join(writeErr, closeErr); joinErr != nil {
+		return fmt.Errorf("writing %s: %w", envFile, joinErr)
 	}
 
 	return nil
