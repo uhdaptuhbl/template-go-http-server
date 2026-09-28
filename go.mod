@@ -5,7 +5,7 @@ go 1.27
 toolchain go1.27.1
 
 require (
-	github.com/go-playground/validator/v10 v10.30.4
+	github.com/go-playground/validator/v10 v10.30.5
 	github.com/google/go-cmp v0.7.0
 	github.com/magefile/mage v1.17.2
 	github.com/prometheus/client_golang v1.24.1
